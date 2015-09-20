@@ -20,7 +20,8 @@ class DatePickerPage extends React.Component {
       minDate: minDate,
       maxDate: maxDate,
       autoOk: false,
-      controlledDate: new Date('2015/07/15')
+      controlledDate: new Date('2015/07/15'),
+      hideSelectedDate: false,
     };
   }
 
@@ -93,6 +94,12 @@ class DatePickerPage extends React.Component {
             type: 'object',
             header: 'optional',
             desc: 'Override the inline-styles of DatePicker\'s TextField element.'
+          },
+          {
+            name: 'hideSelectedDate',
+            type: 'bool',
+            header: 'optional, default: false',
+            desc: 'Tells the component whether to hide the selected date or not.'
           }
         ]
       },
@@ -165,7 +172,8 @@ class DatePickerPage extends React.Component {
             autoOk={this.state.autoOk}
             minDate={this.state.minDate}
             maxDate={this.state.maxDate}
-            showYearSelector={this.state.showYearSelector} />
+            showYearSelector={this.state.showYearSelector}
+            hideSelectedDate={this.state.hideSelectedDate} />
 
           <div style={optionsStyle}>
             <TextField
@@ -190,6 +198,13 @@ class DatePickerPage extends React.Component {
               value="disableYearSelection"
               label="Disable Year Selection"
               defaultToggled={this.state.disableYearSelection}
+              onToggle={this._handleToggle.bind(this)} />
+
+            <Toggle
+              name="hideSelectedDate"
+              value="hideSelectedDate"
+              label="Hide Selected Date"
+              defaultToggled={this.state.hideSelectedDate}
               onToggle={this._handleToggle.bind(this)} />
           </div>
         </CodeExample>

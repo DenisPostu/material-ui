@@ -25,6 +25,7 @@ let Calendar = React.createClass({
     onDayTouchTap: React.PropTypes.func,
     shouldDisableDate: React.PropTypes.func,
     shouldShowMonthDayPickerFirst: React.PropTypes.bool,
+    hideSelectedDate: React.PropTypes.bool,
   },
 
   windowListeners: {
@@ -38,6 +39,7 @@ let Calendar = React.createClass({
       minDate: DateTime.addYears(new Date(), -100),
       maxDate: DateTime.addYears(new Date(), 100),
       shouldShowMonthDayPickerFirst: true,
+      hideSelectedDate: false,
     };
   },
 
@@ -122,18 +124,24 @@ let Calendar = React.createClass({
       styles.calendarContainer.display = 'none';
     }
 
+    let dateDisplay = null;
+    if (!this.props.hideSelectedDate) {
+      dateDisplay = (<DateDisplay
+        disableYearSelection={this.props.disableYearSelection}
+        style={styles.dateDisplay}
+        selectedDate={this.state.selectedDate}
+        handleMonthDayClick={this._handleMonthDayClick}
+        handleYearClick={this._handleYearClick}
+        monthDaySelected={this.state.displayMonthDay}
+        mode={this.props.mode}
+        weekCount={weekCount} />
+      );
+    }
+
     return (
       <ClearFix style={this.mergeAndPrefix(styles.root)}>
 
-        <DateDisplay
-          disableYearSelection={this.props.disableYearSelection}
-          style={styles.dateDisplay}
-          selectedDate={this.state.selectedDate}
-          handleMonthDayClick={this._handleMonthDayClick}
-          handleYearClick={this._handleYearClick}
-          monthDaySelected={this.state.displayMonthDay}
-          mode={this.props.mode}
-          weekCount={weekCount} />
+        {dateDisplay}
 
         <div style={styles.calendarContainer}>
           <CalendarToolbar

@@ -27,10 +27,17 @@ let DatePickerDialog = React.createClass({
     onShow: React.PropTypes.func,
     shouldDisableDate: React.PropTypes.func,
     showYearSelector: React.PropTypes.bool,
+    hideSelectedDate: React.PropTypes.bool,
   },
 
   windowListeners: {
     keyup: '_handleWindowKeyUp',
+  },
+
+  getDefaultProps() {
+    return {
+      hideSelectedDate: false,
+    }
   },
 
   getInitialState() {
@@ -106,7 +113,8 @@ let DatePickerDialog = React.createClass({
           isActive={this.state.isCalendarActive}
           minDate={this.props.minDate}
           maxDate={this.props.maxDate}
-          shouldDisableDate={this.props.shouldDisableDate}
+          hideSelectedDate={this.props.hideSelectedDate}
+          showSelectedDate={this.props.showSelectedDate}
           shouldShowMonthDayPickerFirst={this.state.showMonthDayPicker}
           showYearSelector={this.props.showYearSelector}
           mode={this.props.mode} />

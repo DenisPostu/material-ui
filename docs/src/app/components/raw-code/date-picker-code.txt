@@ -15,4 +15,5 @@
   autoOk={this.state.autoOk}
   minDate={this.state.minDate}
   maxDate={this.state.maxDate}
-  showYearSelector={this.state.showYearSelector} />
+  showYearSelector={this.state.showYearSelector}
+  hideSelectedDate={this.state.hideSelectedDate} />
