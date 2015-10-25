@@ -37,11 +37,13 @@ const Calendar = React.createClass({
     DateTimeFormat: React.PropTypes.func.isRequired,
     locale: React.PropTypes.string.isRequired,
     disableYearSelection: React.PropTypes.bool,
+    displaySelectedDate: React.PropTypes.bool,
     initialDate: React.PropTypes.object,
     isActive: React.PropTypes.bool,
     minDate: React.PropTypes.object,
     maxDate: React.PropTypes.object,
     onDayTouchTap: React.PropTypes.func,
+    onMonthChange: React.PropTypes.func,
     shouldDisableDate: React.PropTypes.func,
   },
 
@@ -52,6 +54,7 @@ const Calendar = React.createClass({
   getDefaultProps() {
     return {
       disableYearSelection: false,
+      displaySelectedDate: true,
       initialDate: new Date(),
       minDate: DateTime.addYears(new Date(), -100),
       maxDate: DateTime.addYears(new Date(), 100),
@@ -142,6 +145,7 @@ const Calendar = React.createClass({
 
     return (
       <ClearFix style={this.mergeStyles(styles.root)}>
+        {this.props.displaySelectedDate &&
         <DateDisplay
           DateTimeFormat={DateTimeFormat}
           locale={locale}
@@ -153,6 +157,7 @@ const Calendar = React.createClass({
           monthDaySelected={this.state.displayMonthDay}
           mode={this.props.mode}
           weekCount={weekCount} />
+        }
         {this.state.displayMonthDay &&
         <div style={this.prepareStyles(styles.calendarContainer)}>
           <CalendarToolbar
@@ -268,6 +273,7 @@ const Calendar = React.createClass({
 
   _handleMonthChange(months) {
     this.setState({displayDate: DateTime.addMonths(this.state.displayDate, months)});
+    if (this.props.onMonthChange) this.props.onMonthChange(this.state.displayDate.getMonth());
   },
 
   _handleYearTouchTap(e, year) {

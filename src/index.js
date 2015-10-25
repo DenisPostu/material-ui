@@ -3,6 +3,7 @@ module.exports = {
   AppCanvas: require('./app-canvas'),
   Avatar: require('./avatar'),
   BeforeAfterWrapper: require('./before-after-wrapper'),
+  Calendar: require('./date-picker/calendar'),
   Card: require('./card/card'),
   CardActions: require('./card/card-actions'),
   CardExpandable: require('./card/card-expandable'),
